@@ -51,7 +51,7 @@ def extraer_categorias_dinamicas(url_origen):
 def iniciar_robot_autonomo():
     print("🚀 ¡Luz verde! Iniciando ciclo de scraping (MODO SEGURO + LOTES)...")
     try:
-        respuesta_urls = httpx.get(API_URLS)
+        respuesta_urls = httpx.get(API_URLS, timeout=120.0)
         lista_urls_db = respuesta_urls.json()
     except Exception as e:
         print(f"❌ Error crítico al obtener URLs: {e}")
