@@ -1,0 +1,28 @@
+name: Robot Scraper LunaTec
+
+on:
+  schedule:
+    # Se ejecuta cada 4 horas
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Te agrega un botón para ejecutarlo a mano cuando quieras
+
+jobs:
+  ejecutar-robot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener el código
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar herramientas
+        run: pip install httpx beautifulsoup4
+
+      - name: ¡Trabajar, Robot, Trabajar!
+        env:
+          # Acá le decimos al robot dónde está tu Render
+          RENDER_EXTERNAL_URL: 'https://scraping-tus.onrender.com'
+        run: python scraper.py
